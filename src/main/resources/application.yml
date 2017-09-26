@@ -1,0 +1,24 @@
+banner:
+       location: classpath:Extras/banner.txt
+spring:
+       thymeleaf:
+                encoding: UTF-8
+                content-type: text/html
+                suffix: .html
+                template: true
+                check-template-location: true
+                mode: HTML5
+                enabled: true
+       datasource:
+                  url: jdbc:hsqldb:file:schema.sql
+                  username: 
+                  password: 
+       jpa:
+                  show-sql: true 
+                  hibernate:
+                            ddl-auto: update 
+                            naming:
+                                   strategy: org.hibernate.cfg.ImprovedNamingStrategy
+                  properties:
+                            hibernate:
+                                     dialect: org.hibernate.dialect.MySQL5Dialect

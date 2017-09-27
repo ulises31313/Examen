@@ -6,6 +6,10 @@
 package com.examen.examen.controllers;
 
 import com.examen.examen.entity.Clientes;
+import com.examen.examen.services.ClientesService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,35 +25,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("Clientes")
 public class ClientesController {
     
+    @Autowired()
+    @Qualifier("ClientesServiceImpl")
+    private ClientesService servicioclientes;
+    
     @PostMapping("/Crear")
     @ResponseBody
     public String Crear(@ModelAttribute("Clientes") Clientes cliente)
     {
-        return "Hola";
+        servicioclientes.CrearCliente(cliente);
+        return "Clientes Generado";
     }
     
     @GetMapping("/Leer")
     @ResponseBody
-    public Clientes Leer()
+    public List<Clientes> Leer()
     {
-        Clientes cliente = new Clientes();
-        cliente.setApellidoMaterno("ulises");
-        return cliente;
+        return servicioclientes.LeerClientes();
     }
     
     @PostMapping("/Modificar")
     @ResponseBody
     public Clientes Modificar(@ModelAttribute("Clientes") Clientes cliente)
     {
-
-        return cliente;
+      return servicioclientes.ModificarCliente(cliente);
     }
     
     @PostMapping("/Eliminar")
     @ResponseBody
     public Clientes Eliminar(@ModelAttribute("Clientes") Clientes cliente)
     {
-        cliente.setApellidoPaterno("Test");
+        servicioclientes.EliminarCliente(cliente.getId());
         return cliente;
     }
     

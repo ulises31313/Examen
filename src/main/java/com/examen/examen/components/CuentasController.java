@@ -5,8 +5,11 @@
  */
 package com.examen.examen.components;
 
-import com.examen.examen.entity.Clientes;
 import com.examen.examen.entity.Cuentas;
+import com.examen.examen.services.CuentasService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,35 +25,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("Cuentas")
 public class CuentasController {
     
-     @PostMapping("/Crear")
+    @Autowired()
+    @Qualifier("CuentasServiceImpl")
+    private CuentasService serviciocuentas;
+    
+    @PostMapping("/Crear")
     @ResponseBody
     public String Crear(@ModelAttribute("Cuentas") Cuentas cuenta)
     {
-        return "Hola";
+        serviciocuentas.CrearCuenta(cuenta);
+        return "Cuenta generada correctamente";
     }
     
     @GetMapping("/Leer")
     @ResponseBody
-    public Cuentas Leer()
+    public List<Cuentas> Leer()
     {
-        Cuentas cuenta = new Cuentas();
-        cuenta.setSaldo("1000");
-        return cuenta;
+        return serviciocuentas.LeerCuenta();
     }
     
     @PostMapping("/Modificar")
     @ResponseBody
     public Cuentas Modificar(@ModelAttribute("Cuentas") Cuentas cuenta)
     {
-
-        return cuenta;
+      return serviciocuentas.ModificarCuenta(cuenta);
     }
     
     @PostMapping("/Eliminar")
     @ResponseBody
     public Cuentas Eliminar(@ModelAttribute("Cuentas") Cuentas cuenta)
     {
-        cuenta.setId_cliente(0);
+        serviciocuentas.EliminarCuenta(cuenta.getId());
         return cuenta;
     }
 }

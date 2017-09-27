@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.examen.examen.components;
+package com.examen.examen.controllers;
 
 import com.examen.examen.entity.Cuentas;
 import com.examen.examen.services.CuentasService;

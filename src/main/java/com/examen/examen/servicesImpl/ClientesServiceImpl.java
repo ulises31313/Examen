@@ -18,8 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ulise
  */
-@Service
-@Transactional
+@Service("ClientesServiceImpl")
 public class ClientesServiceImpl implements ClientesService{
 
     @Autowired
